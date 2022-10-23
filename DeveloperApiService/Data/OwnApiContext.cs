@@ -10,5 +10,6 @@ namespace DeveloperApiService.Data
 
         }
         public DbSet<LinkInfo> LinkInfos { get; set; }
+        public DbSet<YoutubeChannel> YoutubeChannels { get; set; }
     }
 }

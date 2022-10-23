@@ -2,6 +2,7 @@
 using DeveloperApiService.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace DeveloperApiService.Controllers
@@ -20,51 +21,89 @@ namespace DeveloperApiService.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<LinkInfo>> GetAllLinks()
         {
-            var allLinks = repo.GetAllLinks();
-            if (allLinks == null)
+            try
             {
-                return NotFound();
+                var allLinks = repo.GetAllLinks();
+                if (allLinks == null)
+                {
+                    return NotFound();
+                }
+                return Ok(allLinks);
             }
-            return Ok(allLinks);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         [HttpGet("{Id}", Name = "GetLinkInfoById")]
         public ActionResult<IEnumerable<LinkInfo>> GetLinkInfoById(int Id)
         {
-            var linkInfo = repo.GetLinkInfoById(Id);
-            if (linkInfo == null)
+            try
             {
-                return NotFound();
+                var linkInfo = repo.GetLinkInfoById(Id);
+                if (linkInfo == null)
+                {
+                    return NotFound();
+                }
+                return Ok(linkInfo);
             }
-            return Ok(linkInfo);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpPost]
         public ActionResult<LinkInfo> CreateLinkInfo(LinkInfo linkInfo)
         {
-            repo.CreateLinkInfo(linkInfo);
-            return CreatedAtRoute(nameof(GetLinkInfoById), new { Id = linkInfo.Id }, linkInfo);
+            try
+            {
+                repo.CreateLinkInfo(linkInfo);
+                return CreatedAtRoute(nameof(GetLinkInfoById), new { Id = linkInfo.Id }, linkInfo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         [HttpPut("{Id}")]
         public ActionResult<LinkInfo> UpdateCommand(int Id, LinkInfo linkInfo)
         {
-            repo.UpdateLinkInfo(Id, linkInfo);
-            return NoContent();
+            try
+            {
+                repo.UpdateLinkInfo(Id, linkInfo);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         [HttpDelete("{Id}")]
         public ActionResult DeleteCommand(int Id)
         {
-            var command = repo.GetLinkInfoById(Id);
-
-            if (command == null)
+            try
             {
-                return NotFound();
+                var command = repo.GetLinkInfoById(Id);
+
+                if (command == null)
+                {
+                    return NotFound();
+                }
+                repo.DeleteLinkInfo(command);
+                repo.SaveChanges();
+                return NoContent();
             }
-            repo.DeleteLinkInfo(command);
-            repo.SaveChanges();
-            return NoContent();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

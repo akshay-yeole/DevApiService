@@ -35,6 +35,7 @@ namespace DeveloperApiService
                 option.UseSqlServer(Configuration.GetConnectionString("default"));
             });
             services.AddScoped<ILinkRepo, LinkRepo>();
+            services.AddScoped<IYoutubeChannelRepo, YoutubeChannelRepo>();
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
