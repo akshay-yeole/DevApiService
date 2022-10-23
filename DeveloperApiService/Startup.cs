@@ -36,6 +36,7 @@ namespace DeveloperApiService
             });
             services.AddScoped<ILinkRepo, LinkRepo>();
             services.AddScoped<IYoutubeChannelRepo, YoutubeChannelRepo>();
+            services.AddScoped<ICommander, Commander>();
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>

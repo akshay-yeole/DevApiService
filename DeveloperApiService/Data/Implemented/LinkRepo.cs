@@ -15,13 +15,13 @@ namespace DeveloperApiService.Data.Implemented
             this.context = context;
         }
 
-        public void CreateLinkInfo(LinkInfo linkInfo)
+        public void Create(LinkInfo linkInfo)
         {
             context.LinkInfos.Add(linkInfo);
             context.SaveChanges();
         }
 
-        public void DeleteLinkInfo(LinkInfo linkInfo)
+        public void Delete(LinkInfo linkInfo)
         {
             if (linkInfo == null)
             {
@@ -30,12 +30,12 @@ namespace DeveloperApiService.Data.Implemented
             context.LinkInfos.Remove(linkInfo);
         }
 
-        public IEnumerable<LinkInfo> GetAllLinks()
+        public IEnumerable<LinkInfo> GetAll()
         {
             return context.LinkInfos;
         }
 
-        public LinkInfo GetLinkInfoById(int Id)
+        public LinkInfo GetById(int Id)
         {
             return context.LinkInfos.FirstOrDefault(x => x.Id == Id);
         }
@@ -45,9 +45,9 @@ namespace DeveloperApiService.Data.Implemented
             context.SaveChanges();
         }
 
-        public void UpdateLinkInfo(int Id, LinkInfo linkInfo)
+        public void Update(int Id, LinkInfo linkInfo)
         {
-            var islinkInfo = GetLinkInfoById(Id);
+            var islinkInfo = GetById(Id);
             if (islinkInfo == null)
             {
                 throw new ArgumentNullException(nameof(linkInfo));

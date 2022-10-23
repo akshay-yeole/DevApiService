@@ -5,11 +5,11 @@ namespace DeveloperApiService.Data.Contracts
 {
     public interface IYoutubeChannelRepo
     {
-        IEnumerable<YoutubeChannel> GetAllChannels();
-        void CreateYoutubeChannelInfo(YoutubeChannel youtubeChannel);
-        YoutubeChannel GetYoutubeChannelInfoById(int Id);
-        void UpdateYoutubeChannelInfo(int Id, YoutubeChannel youtubeChannel);
-        void DeleteYoutubeChannelInfo(YoutubeChannel youtubeChannel);
+        IEnumerable<YoutubeChannel> GetAll();
+        void Create(YoutubeChannel obj);
+        YoutubeChannel GetById(int Id);
+        void Update(int Id, YoutubeChannel obj);
+        void Delete(YoutubeChannel obj);
         void SaveChanges();
     }
 }

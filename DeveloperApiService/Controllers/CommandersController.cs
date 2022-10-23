@@ -9,22 +9,22 @@ namespace DeveloperApiService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class YoutubeChannelsController : ControllerBase
+    public class CommandersController : ControllerBase
     {
-        private readonly IYoutubeChannelRepo repo;
+        private readonly ICommander repo;
 
-        public YoutubeChannelsController(IYoutubeChannelRepo repo)
+        public CommandersController(ICommander repo)
         {
             this.repo = repo;
         }
 
-        [HttpGet]   
-        public ActionResult<IEnumerable<YoutubeChannel>> GetAll()
+        [HttpGet]
+        public ActionResult<IEnumerable<CommandDetail>> GetAllCommand()
         {
             try
             {
-                var obj = repo.GetAll();
-                return Ok(obj);
+                var objGetAll = repo.GetAll();
+                return Ok(objGetAll);
             }
             catch (Exception ex)
             {
@@ -32,23 +32,8 @@ namespace DeveloperApiService.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult<YoutubeChannel> CreateYoutubeChannelInfo(YoutubeChannel obj)
-        {
-            try
-            {
-                repo.Create(obj);
-                return CreatedAtRoute(nameof(GetById), new { Id = obj.Id }, obj);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
-
-        [HttpGet("{Id}", Name = "GetById")]
-        public ActionResult<LinkInfo> GetById(int Id)
+        [HttpGet("{Id}", Name = "GetByIdCommand")]
+        public ActionResult<CommandDetail> GetByIdCommand(int Id)
         {
             try
             {
@@ -65,8 +50,9 @@ namespace DeveloperApiService.Controllers
             }
         }
 
+
         [HttpPut("{Id}")]
-        public ActionResult<YoutubeChannel> Update(int Id, YoutubeChannel obj)
+        public ActionResult<CommandDetail> UpdateCommand(int Id, CommandDetail obj)
         {
             try
             {
@@ -80,7 +66,7 @@ namespace DeveloperApiService.Controllers
         }
 
         [HttpDelete("{Id}")]
-        public ActionResult Delete(int Id)
+        public ActionResult DeleteCommand(int Id)
         {
             try
             {
@@ -93,6 +79,20 @@ namespace DeveloperApiService.Controllers
                 repo.Delete(obj);
                 repo.SaveChanges();
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult<CommandDetail> CreateCommand(CommandDetail obj)
+        {
+            try
+            {
+                repo.Create(obj);
+                return CreatedAtRoute(nameof(GetByIdCommand), new { Id = obj.Id }, obj);
             }
             catch (Exception ex)
             {

@@ -3,14 +3,16 @@ using DeveloperApiService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DeveloperApiService.Migrations
 {
     [DbContext(typeof(OwnApiContext))]
-    partial class OwnApiContextModelSnapshot : ModelSnapshot
+    [Migration("20221023104944_added commanders")]
+    partial class addedcommanders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

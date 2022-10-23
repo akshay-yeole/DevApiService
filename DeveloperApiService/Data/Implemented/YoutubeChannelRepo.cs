@@ -15,13 +15,13 @@ namespace DeveloperApiService.Data.Implemented
             this.context = context;
         }
 
-        public void CreateYoutubeChannelInfo(YoutubeChannel youtubeChannel)
+        public void Create(YoutubeChannel youtubeChannel)
         {
             context.YoutubeChannels.Add(youtubeChannel);
             context.SaveChanges();
         }
 
-        public void DeleteYoutubeChannelInfo(YoutubeChannel youtubeChannel)
+        public void Delete(YoutubeChannel youtubeChannel)
         {
             if (youtubeChannel == null)
             {
@@ -30,12 +30,12 @@ namespace DeveloperApiService.Data.Implemented
             context.YoutubeChannels.Remove(youtubeChannel);
         }
 
-        public IEnumerable<YoutubeChannel> GetAllChannels()
+        public IEnumerable<YoutubeChannel> GetAll()
         {
             return context.YoutubeChannels;
         }
 
-        public YoutubeChannel GetYoutubeChannelInfoById(int Id)
+        public YoutubeChannel GetById(int Id)
         {
             return context.YoutubeChannels.FirstOrDefault(x => x.Id == Id);
         }
@@ -45,9 +45,9 @@ namespace DeveloperApiService.Data.Implemented
             context.SaveChanges();
         }
 
-        public void UpdateYoutubeChannelInfo(int Id, YoutubeChannel youtubeChannel)
+        public void Update(int Id, YoutubeChannel youtubeChannel)
         {
-            var isyoutubeChannel = GetYoutubeChannelInfoById(Id);
+            var isyoutubeChannel = GetById(Id);
             if (isyoutubeChannel == null)
             {
                 throw new ArgumentNullException(nameof(youtubeChannel));
