@@ -1,4 +1,5 @@
-﻿using DeveloperApiService.Data.Contracts;
+﻿using Contracts;
+using DeveloperApiService.Data.Contracts;
 using DeveloperApiService.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,12 @@ namespace DeveloperApiService.Controllers
     public class CommandersController : ControllerBase
     {
         private readonly ICommander repo;
+        private readonly ILoggerManager logger;
 
-        public CommandersController(ICommander repo)
+        public CommandersController(ICommander repo, ILoggerManager logger)
         {
             this.repo = repo;
+            this.logger = logger;
         }
 
         [HttpGet]
@@ -23,12 +26,17 @@ namespace DeveloperApiService.Controllers
         {
             try
             {
+                logger.LogInfo("Controller : Commanders, Method : GetAllCommand(), Status : Executing");
                 var objGetAll = repo.GetAll();
                 return Ok(objGetAll);
             }
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                logger.LogInfo("Controller : Commanders, Method : GetAllCommand(), Status : Executed");
             }
         }
 

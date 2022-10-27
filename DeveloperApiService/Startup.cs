@@ -1,6 +1,7 @@
 using DeveloperApiService.Data;
 using DeveloperApiService.Data.Contracts;
 using DeveloperApiService.Data.Implemented;
+using DeveloperApiService.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,8 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NLog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +25,7 @@ namespace DeveloperApiService
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -34,6 +38,9 @@ namespace DeveloperApiService
             {
                 option.UseSqlServer(Configuration.GetConnectionString("default"));
             });
+
+            services.ConfigureLoggerService();
+
             services.AddScoped<ILinkRepo, LinkRepo>();
             services.AddScoped<IYoutubeChannelRepo, YoutubeChannelRepo>();
             services.AddScoped<ICommander, Commander>();
